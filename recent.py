@@ -18,11 +18,13 @@ def nfcuid():
 	        dct = {}
         	dct["UID"] = string1[9].split(": ")[1]
         	jsonfile = json.dumps(dct)
-		os.system('aplay /home/pi/bleep_01.wav')
-
+		
+		if(len(jsonfile) == 19):
+			os.system('aplay futurebeep3.wav')
+		else:
+			os.system('aplay bleep_04.wav')
         	print jsonfile
-#        else:
-#		print "ne radi"	
+
 	return
 
 
