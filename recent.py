@@ -2,6 +2,7 @@ import threading
 import subprocess
 import json
 import os
+import requests
 
 def nfcuid():
 	threading.Timer(1.0, nfcuid).start()
@@ -20,12 +21,24 @@ def nfcuid():
         	jsonfile = json.dumps(dct)
 		
 		if(len(jsonfile) == 19):
-			os.system('aplay futurebeep3.wav')
+			os.system('aplay futurebeep3.wav')			
+			response = sent_json_rest(jsonfile)
+			print response
+		
+
+			if(response[0] == 200):
+				os.system('aplay accessgranted2.wav')
+
 		else:
 			os.system('aplay bleep_04.wav')
-        	print jsonfile
+        	
 
 	return
+
+
+def sent_json_rest(json):
+	r = requests.post("https://private-44125-nfcapi.apiary-mock.com/login", data=json)
+	return(r.status_code, r.json())
 
 
 nfcuid()
