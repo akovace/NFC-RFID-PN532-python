@@ -1,6 +1,6 @@
 # NFC-RFID-PN532-python
-Koljegij: Projektiranje informatičkih projekata
-Sveučilište Jurja Dobrile u Puli, OIKT
+Koljegij: Projektiranje informatičkih projekata, 
+Sveučilište Jurja Dobrile u Puli, OIKT, 
 Projekt: Sustav za evidenciju "recent"
 
 Hardver:
