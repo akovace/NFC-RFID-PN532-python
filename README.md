@@ -1,4 +1,8 @@
 # NFC-RFID-PN532-python
+Koljegij: Projektiranje informatičkih projekata
+Sveučilište Jurja Dobrile u Puli, OIKT
+Projekt: Sustav za evidenciju "recent"
+
 Hardver:
 - Raspberry pi 3
 - PN532 NFC modul
@@ -11,6 +15,4 @@ device.connstring = "pn532_spi:/dev/spidev0.0"
 
 - recent.py
 aplikacija napisana u pythonu koja "sluša" gore navedene drivere. Naredba za slušanje čitača u terminalu je nfc-mfsetuid i nfc-poll. Koristili smo nfc-mfsetuid. Unutar recent.py ubacili smo nfc-mfsetuid i prislonom nfc taga dobijemo njezinje podatke. Daljnjom obradom podataka izvučen je UID taga. Nakon što skripza podupi podatak, čuje se zvuk.
-
-
 
