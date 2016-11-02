@@ -5,7 +5,32 @@ import os
 import requests
 
 def nfcuid():
-	threading.Timer(1.0, nfcuid).start()
+	threading.Timer(1.0, nfcuid).start() # Timer koji okida funkciju svake 1 sekunde
+	string1 = eb_to_list() # Funkcija za dohvaćanje podataka iz os-a i njihovo pretvaranje u listu
+
+	if(string1[2][0] == "R"): # Ako lista sadrži traženi podatak
+		jsonfile = list_to_json(string1) # U listi nađi trženi podatak i pretvori u json
+		if(len(jsonfile) == 19): # Traženi podatak treba imati 19 znakova
+			os.system('aplay futurebeep3.wav') # zvuk za dohvaćanje podataka s xice	
+			try:
+				response = sent_json_rest(jsonfile) # podatak šaljemo na rest 
+				if(response[0] == 200): # potvrdan odgovor
+					os.system('aplay accessgranted2.wav') #potvrdan zvuk
+					print response
+				else: 
+					os.system('aplay accessdeniedfemale.wav') #Osobe nema u sustavu
+			except:
+				print "nema interneta"
+				os.system('aplay modem.wav')
+			
+				
+		else:
+			os.system('aplay bleep_04.wav') #nisu stigli svi podaci s xice
+	      	
+
+	return
+
+def eb_to_list():
 	p = subprocess.Popen(["nfc-mfsetuid"], stdout=subprocess.PIPE)
 	output, err = p.communicate()
 	string = json.dumps(output)
@@ -14,31 +39,17 @@ def nfcuid():
 	lines2 = lines1.replace("\\n", "  y")
 	splitt = lines2.split("  y") 
 	string1 = splitt
+	return(string1)
 
-	if(string1[2][0] == "R"):
-	        dct = {}
-        	dct["UID"] = string1[9].split(": ")[1]
-        	jsonfile = json.dumps(dct)
-		
-		if(len(jsonfile) == 19):
-			os.system('aplay futurebeep3.wav')			
-			response = sent_json_rest(jsonfile)
-			print response
-		
-
-			if(response[0] == 200):
-				os.system('aplay accessgranted2.wav')
-
-		else:
-			os.system('aplay bleep_04.wav')
-        	
-
-	return
-
-
+def list_to_json(string1):
+	dct = {}
+   	dct["UID"] = string1[9].split(": ")[1]
+   	jsonfile = json.dumps(dct)
+	return(jsonfile)
+	
 def sent_json_rest(json):
 	r = requests.post("https://private-44125-nfcapi.apiary-mock.com/login", data=json)
 	return(r.status_code, r.json())
 
 
-nfcuid()
+nfcuid() # Poziv glavne funkcije
