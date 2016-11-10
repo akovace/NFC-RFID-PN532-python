@@ -3,6 +3,7 @@ import subprocess
 import json
 import os
 import requests
+from requests.auth import HTTPBasicAuth
 
 def nfcuid():
 	threading.Timer(1.0, nfcuid).start()
@@ -48,6 +49,7 @@ def list_to_json(string1):
 	
 def sent_json_rest(json):
 	r = requests.post("https://private-44125-nfcapi.apiary-mock.com/login", data=json)
+	# r = requests.get('http://recent.cekomat.com/api/users/5', auth=HTTPBasicAuth('masimo.orbanic', '123'), data=json)
 	return(r.status_code, r.json())
 
 
