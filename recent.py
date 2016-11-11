@@ -48,8 +48,8 @@ def list_to_json(string1):
 	return(jsonfile)
 	
 def sent_json_rest(json):
-	r = requests.post("https://private-44125-nfcapi.apiary-mock.com/login", data=json)
-	# r = requests.get('http://recent.cekomat.com/api/users/5', auth=HTTPBasicAuth('masimo.orbanic', '123'), data=json)
+	# r = requests.post("https://private-44125-nfcapi.apiary-mock.com/login", data=json)
+	r = requests.post('http://recent.cekomat.com/api/evidencija', auth=HTTPBasicAuth('masimo.orbanic', '123'))
 	return(r.status_code, r.json())
 
 
