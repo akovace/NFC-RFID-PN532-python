@@ -17,16 +17,16 @@ def GPIOsetup():
     GPIO.setup(FAN_PIN, GPIO.OUT)
     GPIO.setwarnings(False)
 
-def fanON():
+def okidacON():
     GPIO.output(FAN_PIN, 0)
     print "fan on"
     time.sleep(3)
-    fanOFF()
+    okidacOFF()
     return()
 
-def fanOFF():
+def okidacOFF():
     GPIO.output(FAN_PIN, 1)
-    print "fan off"
+    print "okidac off"
     return()
 
 def nfcuid():
@@ -42,7 +42,7 @@ def nfcuid():
 				if(response[0] == 200):
 					os.system('aplay accessgranted2.wav')
 					#otvori vrata
-					fanON():
+					okidacON():
 					print response
 				else: 
 					os.system('aplay accessdeniedfemale.wav')
